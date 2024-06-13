@@ -1,18 +1,18 @@
-import { Component } from "react";
-
+import { Component, memo } from "react";
+import "./searchBox.css";
 class SearchBox extends Component {
   render() {
     const { search, onSearchChange } = this.props;
+    console.log("Render from SearchList");
     return (
-      <div>
-        <input
-          type="text"
-          value={search}
-          onChange={onSearchChange}
-          placeholder="Search Monstor"
-        />
-      </div>
+      <input
+        type="text"
+        value={search}
+        onChange={onSearchChange}
+        className="search-box monsters-search-box"
+        placeholder="Search Monstor"
+      />
     );
   }
 }
-export default SearchBox;
+export default memo(SearchBox);
