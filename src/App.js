@@ -26,23 +26,13 @@ class App extends React.Component {
   render() {
     const { monsters, search } = this.state;
     const { onSearchChange } = this;
-    console.log("render");
+    const filteredMonstors = monsters.filter((monster) => {
+      return monster.name.toLowerCase().includes(search.toLowerCase());
+    });
     return (
       <div>
         <SearchBox onSearchChange={onSearchChange} search={search} />
-        {!(search.length > 0)
-          ? monsters?.map((monster) => (
-              <CardList key={monster.id} monster={monster} />
-            ))
-          : monsters
-              .filter((monster) => {
-                return monster.name
-                  .toLowerCase()
-                  .includes(search.toLowerCase());
-              })
-              .map((monster) => (
-                <CardList key={monster.id} monster={monster} />
-              ))}
+        <CardList monsters={filteredMonstors} />
       </div>
     );
   }
