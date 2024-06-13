@@ -1,4 +1,6 @@
 import React from "react";
+import CardList from "./components/cardList";
+import SearchBox from "./components/searchBox";
 
 class App extends React.Component {
   constructor() {
@@ -27,19 +29,10 @@ class App extends React.Component {
     console.log("render");
     return (
       <div>
-        <div>
-          <input
-            type="text"
-            value={search}
-            onChange={onSearchChange}
-            placeholder="Search Monstor"
-          />
-        </div>
+        <SearchBox onSearchChange={onSearchChange} search={search} />
         {!(search.length > 0)
           ? monsters?.map((monster) => (
-              <div key={monster.id}>
-                <h1>{monster.name}</h1>
-              </div>
+              <CardList key={monster.id} monster={monster} />
             ))
           : monsters
               .filter((monster) => {
@@ -48,9 +41,7 @@ class App extends React.Component {
                   .includes(search.toLowerCase());
               })
               .map((monster) => (
-                <div key={monster.id}>
-                  <h1>{monster.name}</h1>
-                </div>
+                <CardList key={monster.id} monster={monster} />
               ))}
       </div>
     );
