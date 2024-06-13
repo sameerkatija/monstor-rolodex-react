@@ -6,6 +6,7 @@ class App extends React.Component {
 
     this.state = {
       monsters: [],
+      search: "",
     };
   }
   componentDidMount() {
@@ -17,15 +18,40 @@ class App extends React.Component {
         }))
       );
   }
+
+  onSearchChange = (e) => this.setState(() => ({ search: e.target.value }));
+
   render() {
-    const { monsters } = this.state;
+    const { monsters, search } = this.state;
+    const { onSearchChange } = this;
+    console.log("render");
     return (
       <div>
-        {monsters?.map((monster) => (
-          <div key={monster.id}>
-            <h1>{monster.name}</h1>
-          </div>
-        ))}
+        <div>
+          <input
+            type="text"
+            value={search}
+            onChange={onSearchChange}
+            placeholder="Search Monstor"
+          />
+        </div>
+        {!(search.length > 0)
+          ? monsters?.map((monster) => (
+              <div key={monster.id}>
+                <h1>{monster.name}</h1>
+              </div>
+            ))
+          : monsters
+              .filter((monster) => {
+                return monster.name
+                  .toLowerCase()
+                  .includes(search.toLowerCase());
+              })
+              .map((monster) => (
+                <div key={monster.id}>
+                  <h1>{monster.name}</h1>
+                </div>
+              ))}
       </div>
     );
   }
