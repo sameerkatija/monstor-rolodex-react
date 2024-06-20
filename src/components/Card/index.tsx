@@ -1,8 +1,13 @@
-import { memo } from "react";
+import React, { memo } from "react";
 import "./card.css";
+import { Monster } from "../../App";
 
-const Card = ({ monstor }) => {
-  const { id, name, email } = monstor;
+type CardProps = {
+  monster: Monster;
+};
+
+const Card: React.FC<CardProps> = ({ monster }: CardProps) => {
+  const { id, name, email } = monster;
   console.log("Render from Card");
   return (
     <div className="card-container">
